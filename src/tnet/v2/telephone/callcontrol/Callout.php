@@ -10,10 +10,11 @@ use mysticzap\tinetclink\tnet\v2\ErrorCode;
 
 /**
  * 电话/呼叫控制/外呼 接口
+ * @link [第三方接口文档]https://develop.clink.cn/develop/api/cc.html#_外呼
  * @package mysticzap\tinetclink\tnet\v2\telephone\callcontrol
  *
  */
-class callout extends Api
+class Callout extends Api
 {
     /**
      * @var array 请求包含的参数，以及是否必填
@@ -40,39 +41,7 @@ class callout extends Api
     ];
 
     public $apiName = "外呼";
-    public $api = '/callout';
+    public $api = '/cllout';
     public $method = self::METHOD_POST;
 
-    /**
-     * @param array $param
-     */
-    public function validation(array $params = []){
-        if(empty($this->requestParamsRequired)){
-            return true;
-        }
-        foreach($this->requestParamsRequired as $key => $required){
-            // 必填，但是不存在，抛出错误
-            if($required == true && !isset($params[$key])){
-                $this->logger->debug("请求参数缺失", [
-                    'parameterName' => $key
-                ]);
-                throw new ApiRequestParameterException(ErrorCode::ERROR_REQUEST_PARAMETER_DEFECT);
-            }
-        }
-    }
-
-    public function send($params){
-        $data  = $this->post($this->uri, $params);
-        return $this->formatResponse($data);
-    }
-
-    /**
-     * 返回数据格式化
-     * 针对具体类实现时，需要重构成符合自己系统接口的数据格式
-     * @param mixed $responseData
-     * @return mixed|void
-     */
-    public function formatResponse($responseData){
-
-    }
 }

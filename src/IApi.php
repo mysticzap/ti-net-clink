@@ -8,10 +8,11 @@ interface IApi
 {
     /**
      * 发送请求
-     * @param $params
+     * @param $params request parameter
+     * @param array $headers  request header
      * @return mixed
      */
-    public function send($params);
+    public function send($params, $headers = []);
 
     /**
      * 格式化返回数据
