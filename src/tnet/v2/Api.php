@@ -20,18 +20,54 @@ use Psr\Http\Message\ResponseInterface;
  */
 abstract class Api extends BasicApi
 {
-    public function __construct(BasicConfigure $configure, BasicSignature $signature, Logger $logger = null)
-    {
-        parent::__construct($configure, $signature, $logger);
-    }
 
     /**
+     * 验证请求参数必填数据是否存在
+     * @param array $param
+     */
+    public function validation(array $params = []){
+        if(empty($this->requestParamsRequired)){
+            return true;
+        }
+        foreach($this->requestParamsRequired as $key => $required){
+            // 必填，但是不存在，抛出错误
+            if($required == true && !isset($params[$key])){
+                $this->logger->debug("请求参数缺失", [
+                    'parameterName' => $key
+                ]);
+                throw new ApiRequestParameterException(ErrorCode::ERROR_REQUEST_PARAMETER_DEFECT);
+            }
+        }
+    }
+    /**
+     * 返回数据格式化
+     * 针对具体类实现时，需要重构成符合自己系统接口的数据格式
+     * @param mixed $responseData
+     * @return mixed|void
+     */
+    public function formatResponse($responseData){
+        return $responseData;
+    }
+    /**
      * 请求时直接调用的接口
-     * @param $params
+     * @param array $params 请求参数
+     * @param string $postParamType 请求发送数据格式，与Content-Type匹配
+     * @param array $headers http request header
      * @return mixed
      */
-    public function send($params){
-        $data  = $this->post($this->uri, $params);
+    public function send($params, $postParamType = self::REQUEST_TYPE_FORM, $headers = []){
+        $headers = array_merge($this->headersDefault, $headers);
+        if(!isset($headers['Content-Type'])) {
+            switch ($postParamType) {
+                case self::REQUEST_TYPE_FORM:
+                    $headers['Content-Type'] = "application/x-www-form-urlencoded";
+                    break;
+                case self::REQUEST_TYPE_JSON:
+                    $headers['Content-Type'] = "application/json";
+                    break;
+            }
+        }
+        $data  = $this->post($this->uri, $params, [], $headers, $postParamType);
         return $this->formatResponse($data);
     }
 
@@ -74,7 +110,7 @@ abstract class Api extends BasicApi
     }
 
 
-    public function post($uri, $postParams, $queryParams = [], $headers = [], $postParamType = 'json')
+    public function post($uri, $postParams, $queryParams = [], $headers = [], $postParamType = self::REQUEST_TYPE_FORM)
     {
         $options = [];
         if(!empty($postParams)){

@@ -12,6 +12,14 @@ use GuzzleHttp\RequestOptions;
  */
 abstract class BasicApi implements IApi
 {
+    /**
+     * request submit data type
+     */
+    const REQUEST_TYPE_FORM = 'form_params';
+    const REQUEST_TYPE_JSON = 'json';
+    /**
+     * request method
+     */
     const METHOD_GET = 'GET';
     const METHOD_POST = 'POST';
     /**
@@ -29,6 +37,11 @@ abstract class BasicApi implements IApi
      * 定义具体类时，把值固定
      */
     public $method = self::METHOD_GET;
+    /**
+     * @var array 请求包含的参数，以及是否必填
+     * 定义具体类时，把值固定
+     */
+    public $requestParamsRequired = [];
     /**
      * @var GuzzleHttpClient
      */
