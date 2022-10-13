@@ -1,0 +1,28 @@
+{
+    "name": "mysticzap/ti-net-clink",
+    "description": "api ti-net clink 2.0",
+    "type": "library",
+    "require": {
+        "php": ">=5.6.0",
+        "psr/log": "1.1.4",
+        "voku/arrayy": "7.9.4",
+        "guzzlehttp/guzzle": "6.5.8"
+    },
+    "license": "Apache-2.0",
+    "autoload": {
+        "psr-4": {
+            "Mysticzap\\TiNetClink\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "zhonganping",
+            "email": "mysticzap@qq.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require-dev": {
+        "codeception/codeception": "4.2.2",
+        "swagger-api/swagger-ui": "v4.13.0"
+    }
+}
