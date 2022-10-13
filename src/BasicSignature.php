@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Mysticzap\TiNetClink;
+namespace mysticzap\tinetclink;
 
 /**
  * 签名实现类
- * @package Mysticzap\TiNetClink
+ * @package mysticzap\tinetclink
  */
 abstract class BasicSignature implements ISignature
 {

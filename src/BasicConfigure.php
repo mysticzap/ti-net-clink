@@ -1,13 +1,13 @@
 <?php
 
 
-namespace Mysticzap\TiNetClink;
+namespace mysticzap\tinetclink;
 
 /**
  * 配置信息
  * @property $baseUri 接口域名地址
  * @property $timeout 请求超时
- * @package Mysticzap\TiNetClink
+ * @package mysticzap\tinetclink
  */
 abstract class BasicConfigure
 {
@@ -58,7 +58,7 @@ abstract class BasicConfigure
      * 可选值: emergency:128,alert:64,critical:32,error:16, warning:8,notice:4,info:2,debug:1
      * @var string
      */
-    public $logLevel = 255;
+    public $logLevel = 0;
 
 
 }

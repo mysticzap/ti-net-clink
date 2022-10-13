@@ -1,12 +1,12 @@
 <?php
 
 
-namespace Mysticzap\TiNetClink;
+namespace mysticzap\tinetclink;
 
 /**
  * 天润融通接口调用数据签名类
  *
- * @package Mysticzap\TiNetClink
+ * @package mysticzap\tinetclink
  */
 interface ISignature
 {

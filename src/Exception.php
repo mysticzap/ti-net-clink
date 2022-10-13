@@ -1,9 +1,9 @@
 <?php
-namespace Mysticzap\TiNetClink;
+namespace mysticzap\tinetclink;
 
 /**
  * 异常处理基础类
- * @package Mysticzap\TiNetClink
+ * @package mysticzap\tinetclink
  */
 class Exception extends \Exception
 {

@@ -11,7 +11,7 @@
     "license": "Apache-2.0",
     "autoload": {
         "psr-4": {
-            "Mysticzap\\TiNetClink\\": "src/"
+            "mysticzap\\tinetclink\\": "src/"
         }
     },
     "authors": [
