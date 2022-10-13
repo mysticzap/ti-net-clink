@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Mysticzap\TiNetClink;
+namespace mysticzap\tinetclink;
 
 /**
  * 数据格式化接口
- * @package Mysticzap\TiNetClink
+ * @package mysticzap\tinetclink
  */
 interface IDataFormat
 {

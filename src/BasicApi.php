@@ -1,14 +1,14 @@
 <?php
 
 
-namespace Mysticzap\TiNetClink;
+namespace mysticzap\tinetclink;
 
 use GuzzleHttp\Client  as GuzzleHttpClient;
 use GuzzleHttp\RequestOptions;
 
 /**
  * 接口基础类
- * @package Mysticzap\TiNetClink
+ * @package mysticzap\tinetclink
  */
 abstract class BasicApi implements IApi
 {
@@ -16,12 +16,19 @@ abstract class BasicApi implements IApi
     const METHOD_POST = 'POST';
     /**
      * @var string 接口，不包含域名， 如 “/getuser"
+     * 定义具体类时，把值固定
      */
     public $api = '';
     /**
      * @var string 接口名称
+     * 定义具体类时，把值固定
      */
     public $apiName = '';
+    /**
+     * @var string 请求方式
+     * 定义具体类时，把值固定
+     */
+    public $method = self::METHOD_GET;
     /**
      * @var GuzzleHttpClient
      */
@@ -37,13 +44,12 @@ abstract class BasicApi implements IApi
     /**
      * @var Logger 日志对象
      */
-    public $log;
-    public function __construct(BasicConfigure $configure, BasicSignature $signature)
+    public $logger;
+    public function __construct(BasicConfigure $configure, BasicSignature $signature, Logger $logger = null)
     {
         // 初始化配置
         $this->configure = $configure;
-
-        $this->log = new Logger($this->configure->log, $this->configure->debug, $this->configure->logLevel);
+        $this->logger = null !== $logger ? $logger:new Logger($this->configure->log, $this->configure->logLevel);
         // 签名类初始化
         $this->signature = $signature;
         // 初始化客户端配置

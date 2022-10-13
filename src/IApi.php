@@ -1,11 +1,24 @@
 <?php
 
 
-namespace Mysticzap\TiNetClink;
+namespace mysticzap\tinetclink;
 
 
 interface IApi
 {
+    /**
+     * 发送请求
+     * @param $params
+     * @return mixed
+     */
+    public function send($params);
+
+    /**
+     * 格式化返回数据
+     * @param mixed $responseData 返回的数据
+     * @return mixed
+     */
+    public function formatResponse($responseData);
     public function signature($uri, $params);
     /**
      * 发送get请求

@@ -1,14 +1,14 @@
 <?php
 
 
-namespace Mysticzap\TiNetClink;
+namespace mysticzap\tinetclink;
 
 
 use Psr\Log\AbstractLogger;
 
 /**
  * 日志类
- * @package Mysticzap\TiNetClink
+ * @package mysticzap\tinetclink
  */
 class Logger extends AbstractLogger
 {
@@ -21,7 +21,6 @@ class Logger extends AbstractLogger
     const INFO_NUMBER      = 2;
     const DEBUG_NUMBER    = 1;
 
-    public $debug = true;
     public $logFile = '';
     /**
      * @var
@@ -30,10 +29,9 @@ class Logger extends AbstractLogger
     /**
      * Logger constructor.
      */
-    public function __construct($logFile, $debug = true, $logLevel = 1)
+    public function __construct($logFile, $logLevel = 1)
     {
         $this->logFile = $logFile;
-        $this->debug = $debug;
         $this->logLevel = $logLevel;
     }
 
@@ -54,7 +52,7 @@ class Logger extends AbstractLogger
             'message' => $message,
             'context' => $context,
         ];
-        if($this->debug && $this->logLevel & $level){
+        if($this->logLevel & $level){
             if(empty($this->logFile)){
                 $dotPosition = strripos($this->logFile, '.');
                 $logFile = $dotPosition !== false ? substr($this->logFile, 0, $dotPosition) . date("Y-m-d") . substr($this->logFile, $dotPosition) : $this->logFile;

@@ -1,21 +1,40 @@
 <?php
 
 
-namespace Mysticzap\TiNetClink\tnet\v2;
+namespace mysticzap\tinetclink\tnet\v2;
 
 
 use GuzzleHttp\RequestOptions;
 use http\Env\Request;
-use Mysticzap\TiNetClink\BasicApi;
-use Mysticzap\TiNetClink\Exception;
+use mysticzap\tinetclink\BasicApi;
+use mysticzap\tinetclink\BasicConfigure;
+use mysticzap\tinetclink\BasicSignature;
+use mysticzap\tinetclink\Exception;
+use mysticzap\tinetclink\Logger;
 use Psr\Http\Message\ResponseInterface;
 
 /**
  * 天润融通2.0接口基础类
- * @package Mysticzap\TiNetClink\tnet\v2
+ * 第三方接口文档地址：https://develop.clink.cn/develop/api/cc.html#_%E5%A4%96%E5%91%BC
+ * @package mysticzap\tinetclink\tnet\v2
  */
-class Api extends BasicApi
+abstract class Api extends BasicApi
 {
+    public function __construct(BasicConfigure $configure, BasicSignature $signature, Logger $logger = null)
+    {
+        parent::__construct($configure, $signature, $logger);
+    }
+
+    /**
+     * 请求时直接调用的接口
+     * @param $params
+     * @return mixed
+     */
+    public function send($params){
+        $data  = $this->post($this->uri, $params);
+        return $this->formatResponse($data);
+    }
+
     /**
      * 生成时间戳
      * @return false|string
@@ -55,7 +74,7 @@ class Api extends BasicApi
     }
 
 
-    public function post($uri, $postParams, $queryParams, $headers = [], $postParamType = 'json')
+    public function post($uri, $postParams, $queryParams = [], $headers = [], $postParamType = 'json')
     {
         $options = [];
         if(!empty($postParams)){
@@ -82,14 +101,21 @@ class Api extends BasicApi
             $data = json_decode($response->getBody(), true);
             // 成功
             if($statusCode >= 200 && $statusCode < 300){
-
+                return $data;
             } else {
                 // 失败
-                Logger::getInstance()->debug();
+                $this->logger->debug('调用天润2.0接口失败', [
+                    "method"=>$method,
+                    "uri"=>$uri,
+                    "options" => $options,
+                    "responseStatusCode" => $statusCode,
+                    'response' => $data,
+                ]);
+                throw new ApiHttpException(ErrorCode::ERROR_API_CALL);
             }
 
         } catch(\Exception $e){
-            throw new Exception("", '', $e);
+            throw $e;
         }
 
 

@@ -1,16 +1,16 @@
 <?php
 
 
-namespace Mysticzap\TiNetClink\tnet\v2;
+namespace mysticzap\tinetclink\tnet\v2;
 
 
-use Mysticzap\TiNetClink\BasicConfigure;
+use mysticzap\tinetclink\BasicConfigure;
 
 /**
  * 天润融通2.0接口配置
  * @property $baseUri 接口域名地址
  * @property $timeout 请求超时
- * @package Mysticzap\TiNetClink\tnet\v2
+ * @package mysticzap\tinetclink\tnet\v2
  */
 class Configure extends BasicConfigure
 {
@@ -47,9 +47,9 @@ class Configure extends BasicConfigure
     public $log = '';
     /**
      * 日志等级
-     * 可选值: emergency,alert,critical,error,notice,info,debug
+     * 可选值: emergency:128,alert:64,critical:32,error:16, warning:8,notice:4,info:2,debug:1, disabled:0
      * @var string
      */
-    public $logLevel = 'debug';
+    public $logLevel = 255;
 
 }

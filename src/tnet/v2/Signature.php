@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Mysticzap\TiNetClink\tnet\v2;
+namespace mysticzap\tinetclink\tnet\v2;
 
 
-use Mysticzap\TiNetClink\BasicSignature;
+use mysticzap\tinetclink\BasicSignature;
 
 class Signature extends BasicSignature
 {
