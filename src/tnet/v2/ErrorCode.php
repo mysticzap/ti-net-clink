@@ -10,9 +10,11 @@ namespace mysticzap\tinetclink\tnet\v2;
 class ErrorCode
 {
     const ERROR_API_CALL = 900001;
+    const ERROR_REQUEST_PARAMETER_DEFECT = 900002;
 
     public static $messages = [
         self::ERROR_API_CALL => "天润接口异常，请重试",
+        self::ERROR_REQUEST_PARAMETER_DEFECT => "请求参数缺失",
     ];
 
     /**
