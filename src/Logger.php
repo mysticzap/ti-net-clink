@@ -65,7 +65,7 @@ class Logger extends AbstractLogger
         ];
         $iLevel = !empty(self::LEVELS[$level]) ? self::LEVELS[$level] : 0;
         if($this->logLevel & $iLevel){
-            if(empty($this->logFile)){
+            if(!empty($this->logFile)){
                 $dotPosition = strripos($this->logFile, '.');
                 $logFile = $dotPosition !== false ? substr($this->logFile, 0, $dotPosition) . date("Y-m-d") . substr($this->logFile, $dotPosition) : $this->logFile;
                 error_log(json_encode($record, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES), 3, $logFile);
