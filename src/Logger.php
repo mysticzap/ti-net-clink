@@ -21,6 +21,17 @@ class Logger extends AbstractLogger
     const INFO_NUMBER      = 2;
     const DEBUG_NUMBER    = 1;
 
+    const LEVELS = [
+        'emergency' => self::EMERGENCY_NUMBER,
+        'alert' => self::ALERT_NUMBER,
+        'critical' => self::CRITICAL_NUMBER,
+        'error' => self::ERROR_NUMBER,
+        'warning' => self::WARNING_NUMBER,
+        'notice' => self::NOTICE_NUMBER,
+        'info' => self::INFO_NUMBER,
+        'debug' => self::DEBUG_NUMBER,
+    ];
+
     public $logFile = '';
     /**
      * @var
@@ -52,7 +63,8 @@ class Logger extends AbstractLogger
             'message' => $message,
             'context' => $context,
         ];
-        if($this->logLevel & $level){
+        $iLevel = !empty(self::LEVELS[$level]) ? self::LEVELS[$level] : 0;
+        if($this->logLevel & $iLevel){
             if(empty($this->logFile)){
                 $dotPosition = strripos($this->logFile, '.');
                 $logFile = $dotPosition !== false ? substr($this->logFile, 0, $dotPosition) . date("Y-m-d") . substr($this->logFile, $dotPosition) : $this->logFile;
