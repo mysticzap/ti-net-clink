@@ -85,7 +85,8 @@ abstract class Api extends BasicApi
      * @return false|string
      */
     protected function generateTimestamp(){
-        return date("Y-m-dTH:i:sZ");
+        $time = time();
+        return date("Y-m-d", $time) . "T" . date("H:i:s") ."Z";
     }
 
     /**
