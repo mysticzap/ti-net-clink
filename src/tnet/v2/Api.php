@@ -96,7 +96,7 @@ abstract class Api extends BasicApi
         // 判断是否带域名的全路径接口，不是则补全
         $fullUri = false === stripos($uri, $this->configure->baseUri) ? $this->configure->baseUri . $uri : $uri;
         // 用于签名
-        $sParams = $this->a2sAfterKsort($this->ksort($params));
+        $sParams = $this->signature->a2sAfterKsort($this->signature->ksort($params));
         $signature = $this->signature($fullUri, $sParams, self::METHOD_GET);
 
         $options = [
@@ -123,7 +123,7 @@ abstract class Api extends BasicApi
         // 判断是否带域名的全路径接口，不是则补全
         $fullUri = false === stripos($uri, $this->configure->baseUri) ? $this->configure->baseUri . $uri : $uri;
         // 用于签名
-        $sParams = $this->a2sAfterKsort($this->ksort($params));
+        $sParams = $this->signature->a2sAfterKsort($this->signature->ksort($params));
         $signature = $this->signature($fullUri, $sParams, self::METHOD_POST);
         return $this->request("{$uri}?{$sParams}&Signature={$signature}", $options, self::METHOD_POST);
     }
