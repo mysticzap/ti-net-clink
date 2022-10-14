@@ -100,12 +100,12 @@ abstract class Api extends BasicApi
         $signature = $this->signature($fullUri, $sParams, self::METHOD_GET);
 
         $options = [
-            "query"=> "{$sParams}&Signature={$signature}"
+//            "query"=> "{$sParams}&Signature={$signature}"
         ];
         if(!empty($headers)){
             $options[RequestOptions::HEADERS] = $headers;
         }
-        return $this->request($uri, $options, self::METHOD_GET);
+        return $this->request($uri . "{$sParams}&Signature={$signature}", $options, self::METHOD_GET);
     }
 
 
