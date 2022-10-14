@@ -56,7 +56,6 @@ abstract class Api extends BasicApi
      * @return mixed
      */
     public function send($params, $postParamType = self::REQUEST_TYPE_FORM, $headers = []){
-        $headers = array_merge($this->headersDefault, $headers);
         if(!isset($headers['Content-Type'])) {
             switch ($postParamType) {
                 case self::REQUEST_TYPE_FORM:

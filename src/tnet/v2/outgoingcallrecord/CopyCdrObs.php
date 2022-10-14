@@ -1,7 +1,7 @@
 <?php
 
 
-namespace mysticzap\tinetclink\tnet\v2\incomingcallrecord;
+namespace mysticzap\tinetclink\tnet\v2\outgoingcallrecord;
 
 
 use mysticzap\tinetclink\tnet\v2\Api;

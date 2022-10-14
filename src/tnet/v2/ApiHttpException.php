@@ -19,9 +19,9 @@ class ApiHttpException extends Exception
      * @param array $params 消息转换参数
      * @param Throwable|null $previous
      */
-    public function __construct($code = 0, $params = [], Throwable $previous = null)
+    public function __construct($code = 0, $params = [], $message = null, Throwable $previous = null)
     {
-        $message = ErrorCode::getMessage($code,$params);
+        $message = !empty($message) ? $message : ErrorCode::getMessage($code,$params);
         parent::__construct($message, $code, $previous);
     }
 }
