@@ -10,7 +10,7 @@ use mysticzap\tinetclink\tnet\v2\ErrorCode;
 
 /**
  * 电话/呼叫控制/外呼 接口
- * @link [第三方接口文档]https://develop.clink.cn/develop/api/cc.html#_外呼
+ * @link [第三方接口文档](https://develop.clink.cn/develop/api/cc.html#_外呼)
  * @package mysticzap\tinetclink\tnet\v2\telephone\callcontrol
  *
  */
@@ -41,7 +41,7 @@ class Callout extends Api
     ];
 
     public $apiName = "外呼";
-    public $api = '/cllout';
+    public $api = '/callout';
     public $method = self::METHOD_POST;
 
 }
