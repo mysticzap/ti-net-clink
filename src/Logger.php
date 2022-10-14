@@ -64,11 +64,12 @@ class Logger extends AbstractLogger
             'context' => $context,
         ];
         $iLevel = !empty(self::LEVELS[$level]) ? self::LEVELS[$level] : 0;
-        if($this->logLevel & $iLevel){
+        $flag = $this->logLevel & $iLevel;
+        if($flag){
             if(!empty($this->logFile)){
                 $dotPosition = strripos($this->logFile, '.');
-                $logFile = $dotPosition !== false ? substr($this->logFile, 0, $dotPosition) . date("Y-m-d") . substr($this->logFile, $dotPosition) : $this->logFile;
-                error_log(json_encode($record, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES), 3, $logFile);
+                $logFile = $dotPosition !== false ? substr($this->logFile, 0, $dotPosition) . date("Ymd") . substr($this->logFile, $dotPosition) : $this->logFile;
+                error_log(json_encode($record, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES)."\r\n", 3, $logFile);
             } else {
                 $this->recordsByLevel[$record['level']][] = $record;
                 $this->records[] = $record;
