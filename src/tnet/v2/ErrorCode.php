@@ -15,6 +15,7 @@ class ErrorCode
     public static $messages = [
         self::ERROR_API_CALL => "天润接口异常，请重试",
         self::ERROR_REQUEST_PARAMETER_DEFECT => "请求参数缺失",
+        self::ERROR_API_METHOD => "天润接口调用方式错误",
     ];
 
     /**
