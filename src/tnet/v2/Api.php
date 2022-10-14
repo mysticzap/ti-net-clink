@@ -66,7 +66,7 @@ abstract class Api extends BasicApi
                     break;
             }
         }
-        $data  = $this->post($this->uri, $params, [], $headers, $postParamType);
+        $data  = $this->post($this->api, $params, [], $headers, $postParamType);
         return $this->formatResponse($data);
     }
 
