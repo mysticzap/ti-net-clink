@@ -34,7 +34,7 @@ abstract class BasicSignature implements ISignature
      * 支持多层级数组转换
      * @param $requestParams
      * @param string $prefix
-     * @return string
+     * @return array
      *
      * @example：
      * $requestParams = [
@@ -48,9 +48,9 @@ abstract class BasicSignature implements ISignature
      *  ],
      * "c" => 'c1',
      * ];
-     * result: a=a1&b[ba]=ba1&b[bb]=bb1&b[bc][0]=bc1&b[bc][1]=bc2&c=c1
+     * result: 一维数组
      */
-    public function a2sAfterKsort($requestParams, $prefix = ''){
+    public function a2sBeforeKsort($requestParams, $prefix = ''){
         if(!is_array($requestParams)){
             return $requestParams;
         }
@@ -58,11 +58,11 @@ abstract class BasicSignature implements ISignature
         foreach($requestParams as $key => $value){
             $newKey = !empty($prefix) ? ("{$prefix}[{$key}]") : $key;
             if(is_array($value)){
-                $aData[] = $this->a2sAfterKsort($value, $newKey);
+                $aData = array_merge($aData, $this->a2sBeforeKsort($value, $newKey));
             }else {
-                $aData[] = $newKey . "=" . urlencode($value);
+                $aData[$newKey] = urlencode($value);
             }
         }
-        return implode("&", $aData);
+        return $aData;
     }
 }

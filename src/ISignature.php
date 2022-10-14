@@ -30,5 +30,5 @@ interface ISignature
      * @param $requestParamsAfterKsort
      * @return mixed
      */
-    public function a2sAfterKsort($requestParamsAfterKsort);
+    public function a2sBeforeKsort($requestParamsAfterKsort);
 }
