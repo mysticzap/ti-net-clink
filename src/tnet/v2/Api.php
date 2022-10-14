@@ -66,7 +66,17 @@ abstract class Api extends BasicApi
                     break;
             }
         }
-        $data  = $this->post($this->api, $params, [], $headers, $postParamType);
+        switch ($this->method){
+            case self::METHOD_GET:
+                $data  = $this->get($this->api, $params, $headers);
+                break;
+            case self::METHOD_POST:
+                $data  = $this->post($this->api, $params, [], $headers, $postParamType);
+                break;
+            default:
+                throw new ApiHttpException(ErrorCode::ERROR_API_METHOD);
+        }
+
         return $this->formatResponse($data);
     }
 
