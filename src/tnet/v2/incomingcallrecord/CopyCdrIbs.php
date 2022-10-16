@@ -29,8 +29,8 @@ class CopyCdrIbs extends Api
         "limit" => false,
     ];
 
-    public $apiName = "下载通话录音文件";
-    public $api = '/download_record_file';
+    public $apiName = "同步呼入通话记录";
+    public $api = '/copy_cdr_ibs';
     public $method = self::METHOD_GET;
 
     /**
