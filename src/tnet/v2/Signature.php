@@ -17,7 +17,7 @@ class Signature extends BasicSignature
         $sSigntrueData = $method . $api .'?'. $data;
 //        java: BasicSignature = URLEncode(base64(hmac-sha1(AccessKeySecret, urlParam)))
         $this->logger->debug("签名参数数据：". $sSigntrueData, []);
-        $result = urlencode(base64_encode(hash_hmac('sha1', $sSigntrueData, true)));
+        $result = urlencode(base64_encode(hash_hmac('sha1', $sSigntrueData, $this->configure->accessKeySecret, true)));
         $this->logger->debug("签名：". $result, []);
     }
 

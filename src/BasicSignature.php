@@ -11,10 +11,15 @@ abstract class BasicSignature implements ISignature
 {
 
     /**
+     * @var BasicConfigure
+     */
+    public $configure;
+    /**
      * @var Logger 日志类
      */
     public $logger;
-    public function __construct(Logger $logger){
+    public function __construct(BasicConfigure $configure, Logger $logger){
+        $this->configure = $configure;
         $this->logger = $logger;
     }
     /**
