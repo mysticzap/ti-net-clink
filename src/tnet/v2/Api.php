@@ -108,7 +108,7 @@ abstract class Api extends BasicApi
         $fullUri = false === stripos($uri, $this->configure->baseUri) ? $this->configure->baseUri . $uri : $uri;
         // 用于签名
         $aParams = $this->signature->ksort($this->signature->a2sBeforeKsort($params));
-        $sParams = http_build_query($aParams);
+        $sParams = $this->signature->getHttpBuildQuery($aParams);
         $signature = $this->signature($fullUri, $sParams, self::METHOD_GET);
 
         $options = [
@@ -136,7 +136,7 @@ abstract class Api extends BasicApi
         $fullUri = false === stripos($uri, $this->configure->baseUri) ? $this->configure->baseUri . $uri : $uri;
         // 用于签名
         $aParams = $this->signature->ksort($this->signature->a2sBeforeKsort($params));
-        $sParams = http_build_query($aParams);
+        $sParams = $this->signature->getHttpBuildQuery($aParams);
         $signature = $this->signature($fullUri, $sParams, self::METHOD_POST);
         return $this->request("{$uri}?{$sParams}&Signature={$signature}", $options, self::METHOD_POST);
     }

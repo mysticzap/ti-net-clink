@@ -11,6 +11,18 @@ abstract class BasicSignature implements ISignature
 {
 
     /**
+     * @var BasicConfigure
+     */
+    public $configure;
+    /**
+     * @var Logger 日志类
+     */
+    public $logger;
+    public function __construct(BasicConfigure $configure, Logger $logger){
+        $this->configure = $configure;
+        $this->logger = $logger;
+    }
+    /**
      * 请求前数据签名排序
      * @return mixed
      */
@@ -22,7 +34,7 @@ abstract class BasicSignature implements ISignature
             if(is_array($value)){
                 $requestParams[$key] = $this->ksort($value);
             }else {
-                $requestParams[$key] = urlencode($value);
+                $requestParams[$key] = $value;
             }
         }
         ksort($requestParams);
@@ -64,5 +76,23 @@ abstract class BasicSignature implements ISignature
             }
         }
         return $aData;
+    }
+
+
+    /**
+     * 获得生成url上的参数数据
+     * @param array $paramsAfterSort
+     * @return string;
+     */
+    public function getHttpBuildQuery($paramsAfterSort){
+        if(is_array($paramsAfterSort)){
+            $aHttBuildQuery = [];
+            foreach($paramsAfterSort as $k => $v){
+                $aHttBuildQuery[] = $k . '=' . $v;
+            }
+            return implode("&", $aHttBuildQuery);
+
+        }
+        return $paramsAfterSort;
     }
 }
