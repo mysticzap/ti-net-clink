@@ -28,7 +28,7 @@ abstract class BasicSignature implements ISignature
      */
     public function ksort($requestParams){
         if(!is_array($requestParams)){
-            return urldecode($requestParams);
+            return $requestParams;
         }
         foreach($requestParams as $key => $value){
             if(is_array($value)){
@@ -38,6 +38,7 @@ abstract class BasicSignature implements ISignature
             }
         }
         ksort($requestParams);
+        $this->logger->debug("签名参数排序后", [$requestParams]);
         return $requestParams;
     }
 
@@ -72,9 +73,11 @@ abstract class BasicSignature implements ISignature
             if(is_array($value)){
                 $aData = array_merge($aData, $this->a2sBeforeKsort($value, $newKey));
             }else {
-                $aData[$newKey] = urlencode($value);
+                $aData[$newKey] = $value;
             }
         }
+
+        $this->logger->debug("参数多维转一维数组", [$aData]);
         return $aData;
     }
 
@@ -85,14 +88,16 @@ abstract class BasicSignature implements ISignature
      * @return string;
      */
     public function getHttpBuildQuery($paramsAfterSort){
+        $sParamsAfterSort = $paramsAfterSort;
         if(is_array($paramsAfterSort)){
             $aHttBuildQuery = [];
             foreach($paramsAfterSort as $k => $v){
-                $aHttBuildQuery[] = $k . '=' . $v;
+                $aHttBuildQuery[] = urlencode($k) . '=' . urlencode($v);
             }
-            return implode("&", $aHttBuildQuery);
+            $sParamsAfterSort = implode("&", $aHttBuildQuery);
 
         }
-        return $paramsAfterSort;
+        $this->logger->debug("签名参数字符串", [$sParamsAfterSort]);
+        return $sParamsAfterSort;
     }
 }
