@@ -41,7 +41,7 @@ class Callout extends Api
     ];
 
     public $apiName = "外呼";
-    public $api = '/callout';
+    public $api = '/cc/callout';
     public $method = self::METHOD_POST;
 
 }
