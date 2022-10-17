@@ -152,18 +152,15 @@ abstract class Api extends BasicApi
             if($statusCode >= 200 && $statusCode < 300){
                 return $data;
             } else {
-                // 失败
-                $this->logger->debug('调用天润2.0接口失败', [
-                    "method"=>$method,
-                    "uri"=>$uri,
-                    "options" => $options,
-                    "responseStatusCode" => $statusCode,
-                    'response' => $data,
-                ]);
                 throw new ApiHttpException(ErrorCode::ERROR_API_CALL);
             }
-
         } catch(\Exception $e){
+            // 失败
+            $this->logger->debug('调用天润2.0接口失败', [
+                "method"=>$method,
+                "uri"=>$uri,
+                "options" => $options,
+            ]);
             throw $e;
         }
 
