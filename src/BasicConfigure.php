@@ -46,10 +46,6 @@ abstract class BasicConfigure
      */
     public $expires = 7200;
     /**
-     * @var bool 是否打开调试，记录日志
-     */
-    public $debug = true;
-    /**
      * @var string 日志记录地址
      */
     public $log = '';

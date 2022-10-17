@@ -19,6 +19,7 @@ class Signature extends BasicSignature
         $this->logger->debug("签名参数数据：". $sSigntrueData, []);
         $result = urlencode(base64_encode(hash_hmac('sha1', $sSigntrueData, $this->configure->accessKeySecret, true)));
         $this->logger->debug("签名：". $result, []);
+        return $result;
     }
 
 }
