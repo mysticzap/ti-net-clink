@@ -37,13 +37,15 @@ class Logger extends AbstractLogger
      * @var
      */
     public $logLevel = 1;
+    public $logFileNameFormat = "";
     /**
      * Logger constructor.
      */
-    public function __construct($logFile, $logLevel = 1)
+    public function __construct($logFile, $logLevel = 1, $logFileNameFormat = "")
     {
         $this->logFile = $logFile;
         $this->logLevel = $logLevel;
+        $this->logFileNameFormat = $logFileNameFormat;
     }
 
     /**
@@ -67,8 +69,11 @@ class Logger extends AbstractLogger
         $flag = $this->logLevel & $iLevel;
         if($flag){
             if(!empty($this->logFile)){
-                $dotPosition = strripos($this->logFile, '.');
-                $logFile = $dotPosition !== false ? substr($this->logFile, 0, $dotPosition) . date("Ymd") . substr($this->logFile, $dotPosition) : $this->logFile;
+                $logFile = $this->logFile;
+                if(!empty($this->logFileNameFormat)){
+                    $dotPosition = strripos($this->logFile, '.');
+                    $logFile = $dotPosition !== false ? substr($this->logFile, 0, $dotPosition) . date($this->logFileNameFormat) . substr($this->logFile, $dotPosition) : $this->logFile;
+                }
                 $data = json_encode($context, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
                 $time = date("Y-m-d H:i:s");
                 $logRecord = "[Date:{$time}][Level:{$level}][Message:{$message}] {$data}\r\n";
