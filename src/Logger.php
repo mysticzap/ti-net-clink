@@ -69,7 +69,10 @@ class Logger extends AbstractLogger
             if(!empty($this->logFile)){
                 $dotPosition = strripos($this->logFile, '.');
                 $logFile = $dotPosition !== false ? substr($this->logFile, 0, $dotPosition) . date("Ymd") . substr($this->logFile, $dotPosition) : $this->logFile;
-                error_log(json_encode($record, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES)."\r\n", 3, $logFile);
+                $data = json_encode($context, JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES);
+                $time = date("Y-m-d H:i:s");
+                $logRecord = "[Date:{$time}][Level:{$level}][Message:{$message}] {$data}\r\n";
+                error_log($logRecord, 3, $logFile);
             } else {
                 $this->recordsByLevel[$record['level']][] = $record;
                 $this->records[] = $record;
