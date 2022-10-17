@@ -47,8 +47,14 @@ abstract class BasicConfigure
     public $expires = 7200;
     /**
      * @var string 日志记录地址
+     * @example /data/log/logfilename.log
      */
     public $log = '';
+    /**
+     * @var string 日志文件名生成格式， 如果为空，则直接为原始的$this->log的值，否则是date的时间格式值
+     * @example 按日生成日志："Ymd" /data/log/logfilename20221012.log， 按小时：”YmdH" /data/log/logfilename2022101205.log
+     */
+    public $logFileNameFormat = "Ymd";
     /**
      * 日志等级
      * 可选值: emergency:128,alert:64,critical:32,error:16, warning:8,notice:4,info:2,debug:1
