@@ -8,7 +8,7 @@ use mysticzap\tinetclink\tnet\v2\Api;
 
 /**
  * 6.1.4. 同步呼入通话记录
- * @link [third api doc]https://develop.clink.cn/develop/api/cc.html#_%E5%90%8C%E6%AD%A5%E5%91%BC%E5%85%A5%E9%80%9A%E8%AF%9D%E8%AE%B0%E5%BD%95
+ * @link [third api doc]https://develop.clink.cn/develop/api/cc.html#同步呼入通话记录
  * @package mysticzap\tinetclink\tnet\v2\incomingcallrecord
  */
 class CopyCdrIbs extends Api
@@ -30,7 +30,7 @@ class CopyCdrIbs extends Api
     ];
 
     public $apiName = "同步呼入通话记录";
-    public $api = '/copy_cdr_ibs';
+    public $api = '/cc/copy_cdr_ibs';
     public $method = self::METHOD_GET;
 
     /**
