@@ -30,7 +30,7 @@ class CopyCdrObs extends Api
     ];
 
     public $apiName = "同步外呼通话记录";
-    public $api = '/copy_cdr_obs';
+    public $api = '/cc/copy_cdr_obs';
     public $method = self::METHOD_GET;
 
     /**

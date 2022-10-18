@@ -7,8 +7,8 @@ namespace mysticzap\tinetclink\tnet\v2\stat;
 use mysticzap\tinetclink\tnet\v2\Api;
 
 /**
- * 座席工作量报表
- * @link [third api doc]https://develop.clink.cn/develop/api/cc.html#_%E5%BA%A7%E5%B8%AD%E5%B7%A5%E4%BD%9C%E9%87%8F%E6%8A%A5%E8%A1%A8
+ * 8.2. 座席工作量报表
+ * @link [third api doc]https://develop.clink.cn/develop/api/cc.html#_座席工作量报表
  * @package mysticzap\tinetclink\tnet\v2\stat
  */
 class StatClientWorkload extends Api
@@ -28,6 +28,6 @@ class StatClientWorkload extends Api
     ];
 
     public $apiName = "座席工作量报表";
-    public $api = '/stat_client_workload';
+    public $api = '/cc/stat_client_workload';
     public $method = self::METHOD_POST;
 }

@@ -7,8 +7,8 @@ namespace mysticzap\tinetclink\tnet\v2\stat;
 use mysticzap\tinetclink\tnet\v2\Api;
 
 /**
- * 满意度报表-按座席统计
- * @link [third api doc]https://develop.clink.cn/develop/api/cc.html#_%E6%BB%A1%E6%84%8F%E5%BA%A6%E6%8A%A5%E8%A1%A8_%E6%8C%89%E5%BA%A7%E5%B8%AD%E7%BB%9F%E8%AE%A1
+ * 8.9. 满意度报表-按座席统计
+ * @link [third api doc]https://develop.clink.cn/develop/api/cc.html#_满意度报表-按座席统计
  * @package mysticzap\tinetclink\tnet\v2\stat
  */
 class StatInvestigationByCno extends Api
@@ -27,6 +27,6 @@ class StatInvestigationByCno extends Api
     ];
 
     public $apiName = "满意度报表-按座席统计";
-    public $api = '/stat_investigation_by_cno';
+    public $api = '/cc/stat_investigation_by_cno';
     public $method = self::METHOD_POST;
 }

@@ -21,7 +21,5 @@
     ],
     "minimum-stability": "dev",
     "require-dev": {
-        "codeception/codeception": "4.2.2",
-        "swagger-api/swagger-ui": "v4.13.0"
     }
 }
