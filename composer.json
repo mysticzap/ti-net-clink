@@ -19,9 +19,7 @@
             "email": "mysticzap@qq.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "0.2.0",
     "require-dev": {
-        "codeception/codeception": "4.2.2",
-        "swagger-api/swagger-ui": "v4.13.0"
     }
 }
