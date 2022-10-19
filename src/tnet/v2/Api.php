@@ -128,12 +128,14 @@ abstract class Api extends BasicApi
         if(!empty($postParams)){
             $options[$postParamType] = $postParams;
         }
+
+        $this->logger->debug("天润接口post参数", ['option' =>$options]);
         $params = array_merge([
             "AccessKeyId" => $this->configure->accessKeyId,
             "Expires" => $this->configure->expires,
             "Timestamp" => $this->generateTimestamp(),
         ], $queryParams);
-        $this->logger->debug("天润post处理接口参数", ['queryParams' =>$params]);
+        $this->logger->debug("天润接口url参数", ['queryParams' =>$params]);
         // 判断是否带域名的全路径接口，不是则补全
         $fullUri = false === stripos($uri, $this->configure->baseUri) ? $this->configure->baseUri . $uri : $uri;
         // 用于签名
