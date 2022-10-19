@@ -133,6 +133,7 @@ abstract class Api extends BasicApi
             "Expires" => $this->configure->expires,
             "Timestamp" => $this->generateTimestamp(),
         ], $queryParams);
+        $this->logger->debug("天润post处理接口参数", ['queryParams' =>$params]);
         // 判断是否带域名的全路径接口，不是则补全
         $fullUri = false === stripos($uri, $this->configure->baseUri) ? $this->configure->baseUri . $uri : $uri;
         // 用于签名
