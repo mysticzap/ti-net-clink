@@ -56,16 +56,6 @@ abstract class Api extends BasicApi
      * @return mixed
      */
     public function send($params, $postParamType = self::REQUEST_TYPE_FORM, $headers = []){
-        if(!isset($headers['Content-Type'])) {
-            switch ($postParamType) {
-                case self::REQUEST_TYPE_FORM:
-                    $headers['Content-Type'] = "application/x-www-form-urlencoded";
-                    break;
-                case self::REQUEST_TYPE_JSON:
-                    $headers['Content-Type'] = "application/json";
-                    break;
-            }
-        }
         switch ($this->method){
             case self::METHOD_GET:
                 $data  = $this->get($this->api, $params, $headers);
@@ -128,12 +118,14 @@ abstract class Api extends BasicApi
         if(!empty($postParams)){
             $options[$postParamType] = $postParams;
         }
+
+        $this->logger->debug("天润接口post参数", ['option' =>$options]);
         $params = array_merge([
             "AccessKeyId" => $this->configure->accessKeyId,
             "Expires" => $this->configure->expires,
             "Timestamp" => $this->generateTimestamp(),
         ], $queryParams);
-        $this->logger->debug("天润post处理接口参数", ['queryParams' =>$params]);
+        $this->logger->debug("天润接口url参数", ['queryParams' =>$params]);
         // 判断是否带域名的全路径接口，不是则补全
         $fullUri = false === stripos($uri, $this->configure->baseUri) ? $this->configure->baseUri . $uri : $uri;
         // 用于签名
@@ -157,11 +149,27 @@ abstract class Api extends BasicApi
             }
         } catch(\Exception $e){
             // 失败
-            $this->logger->debug('调用天润2.0接口失败', [
+            $errorLog = [
                 "method"=>$method,
                 "uri"=>$uri,
                 "options" => $options,
-            ]);
+            ];
+            if($e instanceof RequestException){
+                // 获得状态码不是200的返回的错误数据
+                $aBody = json_decode($e->getResponse()->getBody(), true);
+                $statusCode = $e->getResponse()->getStatusCode();
+                $errorLog = [
+                    "method"=>$method,
+                    "uri"=>$uri,
+                    "options" => $options,
+                    'statuscode' => $statusCode,
+                    'body' => $aBody,
+                ];
+                $this->logger->error('调用天润2.0接口失败', $errorLog);
+                throw new ApiHttpException(ErrorCode::ERROR_API_CALL, [],
+                    $aBody['error']['code'], $statusCode);
+            }
+            $this->logger->error('调用天润2.0接口失败', $errorLog);
             throw $e;
         }
 
