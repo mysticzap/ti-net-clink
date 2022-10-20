@@ -4,6 +4,7 @@
 namespace mysticzap\tinetclink\tnet\v2;
 
 
+use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\RequestOptions;
 use http\Env\Request;
 use mysticzap\tinetclink\BasicApi;
@@ -158,19 +159,15 @@ abstract class Api extends BasicApi
                 // 获得状态码不是200的返回的错误数据
                 $aBody = json_decode($e->getResponse()->getBody(), true);
                 $statusCode = $e->getResponse()->getStatusCode();
-                $errorLog = [
-                    "method"=>$method,
-                    "uri"=>$uri,
-                    "options" => $options,
-                    'statuscode' => $statusCode,
-                    'body' => $aBody,
-                ];
+                $errorLog['statusCode'] = $statusCode;
+                $errorLog['body'] = $aBody;
                 $this->logger->error('调用天润2.0接口失败', $errorLog);
                 throw new ApiHttpException(ErrorCode::ERROR_API_CALL, [],
                     $aBody['error']['code'], $statusCode);
+            } else {
+                $this->logger->error('调用天润2.0接口失败', $errorLog);
+                throw $e;
             }
-            $this->logger->error('调用天润2.0接口失败', $errorLog);
-            throw $e;
         }
 
 
