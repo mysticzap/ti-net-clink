@@ -56,16 +56,6 @@ abstract class Api extends BasicApi
      * @return mixed
      */
     public function send($params, $postParamType = self::REQUEST_TYPE_FORM, $headers = []){
-        if(!isset($headers['Content-Type'])) {
-            switch ($postParamType) {
-                case self::REQUEST_TYPE_FORM:
-                    $headers['Content-Type'] = "application/x-www-form-urlencoded";
-                    break;
-                case self::REQUEST_TYPE_JSON:
-                    $headers['Content-Type'] = "application/json";
-                    break;
-            }
-        }
         switch ($this->method){
             case self::METHOD_GET:
                 $data  = $this->get($this->api, $params, $headers);
@@ -159,11 +149,27 @@ abstract class Api extends BasicApi
             }
         } catch(\Exception $e){
             // 失败
-            $this->logger->debug('调用天润2.0接口失败', [
+            $errorLog = [
                 "method"=>$method,
                 "uri"=>$uri,
                 "options" => $options,
-            ]);
+            ];
+            if($e instanceof RequestException){
+                // 获得状态码不是200的返回的错误数据
+                $aBody = json_decode($e->getResponse()->getBody(), true);
+                $statusCode = $e->getResponse()->getStatusCode();
+                $errorLog = [
+                    "method"=>$method,
+                    "uri"=>$uri,
+                    "options" => $options,
+                    'statuscode' => $statusCode,
+                    'body' => $aBody,
+                ];
+                $this->logger->error('调用天润2.0接口失败', $errorLog);
+                throw new ApiHttpException(ErrorCode::ERROR_API_CALL, [],
+                    $aBody['error']['code'], $statusCode);
+            }
+            $this->logger->error('调用天润2.0接口失败', $errorLog);
             throw $e;
         }
 
