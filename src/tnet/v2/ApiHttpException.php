@@ -12,7 +12,8 @@ use Throwable;
  * @package mysticzap\tinetclink\tnet\v2
  */
 class ApiHttpException extends Exception
-{private $statusCode = null;
+{
+    private $statusCode = null;
 
     /**
      * ApiHttpException constructor.
@@ -28,6 +29,7 @@ class ApiHttpException extends Exception
         $message = !empty($message) ? $message : ErrorCode::getMessage($code,$params);
         parent::__construct($message, $code, $previous);
     }
+
     /**
      * http状态码
      */

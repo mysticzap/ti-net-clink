@@ -21,7 +21,7 @@ class DescribeDetailRecordFileUrl extends Api
         // 通话记录唯一标识
         "mainUniqueId" => true,
         // 通话记录唯一标识
-        "uniqueId" => false,
+        "uniqueId" => true,
         // 不传递获取mp3格式录音，传递时获取wav格式录音。1：双轨录音客户侧，2：双轨录音座席侧，3：两侧合成录音
         "recordSide" => false,
         // 获取录音地址超时时长，单位为秒，默认为一小时，范围在一到二十四小时。
