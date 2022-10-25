@@ -14,3 +14,8 @@ composer require mysticzap/ti-net-clink
   }
 }
 ```
+
+### 第三方接口调用的配置格式
+```json
+
+```
