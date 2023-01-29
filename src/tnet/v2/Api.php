@@ -97,7 +97,7 @@ abstract class Api extends BasicApi
             "Timestamp" => $this->generateTimestamp(),
         ], $params);
         // 判断是否带域名的全路径接口，不是则补全
-        $fullUri = false === stripos($uri, $this->configure->baseUri) ? $this->configure->baseUri . $uri : $uri;
+        $fullUri = false === stripos($uri, $this->configure->baseUri) ? ($this->configure->baseUri . $uri) : $uri;
         // 用于签名
         $aParams = $this->signature->ksort($this->signature->a2sBeforeKsort($params));
         $sParams = $this->signature->getHttpBuildQuery($aParams);
@@ -157,7 +157,8 @@ abstract class Api extends BasicApi
             ];
             if($e instanceof RequestException){
                 // 获得状态码不是200的返回的错误数据
-                $aBody = json_decode($e->getResponse()->getBody(), true);
+                $body = $e->getResponse()->getBody();
+                $aBody = !empty($body)?json_decode($body, true):[];
                 $statusCode = $e->getResponse()->getStatusCode();
                 $errorLog['statusCode'] = $statusCode;
                 $errorLog['body'] = $aBody;
