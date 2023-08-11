@@ -77,8 +77,10 @@ abstract class Api extends BasicApi
      */
     protected function generateTimestamp(){
         $time = time();
-        $this->logger->debug("生成签名时间戳", ['date'=>date("Y-m-d H:i:s")]);
-        return date("Y-m-d", $time) . "T" . date("H:i:s", $time) ."Z";
+        $date = new \DateTime('now', new \DateTimeZone("UTC"));
+        $sDate = $date->format('Y-m-d\\TH:i:s\\Z');
+        $this->logger->debug("生成签名时间戳", ['date'=>$sDate]);
+        return $sDate;
     }
 
     /**
