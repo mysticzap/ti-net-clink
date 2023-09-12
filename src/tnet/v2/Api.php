@@ -143,7 +143,7 @@ abstract class Api extends BasicApi
         try{
             $response = $this->client->request($method, $uri, $options);
             $statusCode = $response->getStatusCode();
-            $data = json_decode($response->getBody(), true);
+            $data = !empty($response->getBody()) ? json_decode($response->getBody(), true) : [];
             // 成功
             if($statusCode >= 200 && $statusCode < 300){
                 return $data;
