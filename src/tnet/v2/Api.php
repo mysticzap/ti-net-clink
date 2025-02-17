@@ -164,8 +164,7 @@ abstract class Api extends BasicApi
                 $statusCode = $e->getResponse()->getStatusCode();
                 $errorLog['statusCode'] = $statusCode;
                 $errorLog['body'] = $aBody;
-
-                $thirdErrorCode = $aBody['error']['code']??"";
+                $thirdErrorCode = !empty($aBody['error']['code'])?$aBody['error']['code']:"";
                 // 过滤掉指定的第三方错误，不记录日志
                 $filterErrors = ['DownloadNotExistsError'];
                 if(!(!empty($thirdErrorCode) && in_array($thirdErrorCode,$filterErrors))){
