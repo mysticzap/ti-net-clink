@@ -164,7 +164,13 @@ abstract class Api extends BasicApi
                 $statusCode = $e->getResponse()->getStatusCode();
                 $errorLog['statusCode'] = $statusCode;
                 $errorLog['body'] = $aBody;
-                $this->logger->error('调用天润2.0接口失败', $errorLog);
+
+                $thirdErrorCode = $aBody['error']['code']??"";
+                // 过滤掉指定的第三方错误，不记录日志
+                $filterErrors = ['DownloadNotExistsError'];
+                if(!(!empty($thirdErrorCode) && in_array($thirdErrorCode,$filterErrors))){
+                    $this->logger->error('调用天润2.0接口失败', $errorLog);
+                }
                 throw new ApiHttpException(ErrorCode::ERROR_API_CALL, [],
                     $aBody['error']['code'], $statusCode);
             } else {
