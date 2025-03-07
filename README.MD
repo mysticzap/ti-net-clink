@@ -19,8 +19,8 @@ composer require mysticzap/ti-net-clink
 ```PHP
 $config = [
     "baseUri" => '', // 接口域名
-    "accessKeyId" => read_env("TI_NET2_ACCESS_KEY_ID"),// key_id,
-    "accessKeySecret" => read_env("TI_NET2_ACCESS_KEY_SECRET"), // key_secret,
+    "accessKeyId" => '',// key_id,
+    "accessKeySecret" => '', // key_secret,
     "log" => '', // 日志地址
     "logFileNameFormat" => '',// 日志文件名格式化，日期格式：Ymd
     "logLevel" => 0, // 打印日志等级
